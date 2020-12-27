@@ -8,7 +8,7 @@ var textInput = document.getElementById('textInput');
 //textInput.addEventListener("keypress", generateFromInput);
 textInput.addEventListener("input", generateFromInput);
 
-const PRECISION = 20; // values below PRECISION are cutted
+const FILTER = 20; // values below FILTER are cutted
 const LINE_COLOR = "#736EFE";
 const FILL_COLOR = "#FFFFFF00";
 
@@ -27,13 +27,8 @@ function setup() {
                             // so display 32 cells on the left and
                             // 32 cells on the right
                             // sqrt(64) = 8
-    
-    background(0, 0);
 
     generate();
-}
-
-function draw() {
 }
 
 
@@ -69,7 +64,9 @@ class CCell {
     constructor(size, color_value) {
         this.size = size;
 
-        if(color_value <= PRECISION) {
+        // values go from 0 to 255 so we split them
+        // according to FILTER
+        if(color_value <= FILTER) {
             this.color = color(LINE_COLOR);
         }
         else {
@@ -78,6 +75,8 @@ class CCell {
     }
 
     show(pos) {
+        // display the cell at a given position
+
         push();
         noStroke();
         fill(this.color);
@@ -88,7 +87,7 @@ class CCell {
 
 
 class CGrid {
-    // a grid class to handle cells
+    // a grid class to handle mutliple cells
 
     constructor(rows, cols) {
         this.rows = rows;
@@ -122,6 +121,7 @@ class CGrid {
         for(let i = 0; i < this.cols/2; i++) {
             var col = [];
             for(let j = 0; j < this.rows; j++) {
+                // here we use i * j instead of an accurate incrementing index:
                 var color_value = get_color_value(hash, i * j);
                 col.push(new CCell(this.cell_size, color_value));
             }
@@ -159,6 +159,7 @@ function get_color_value(hash, hash_index) {
 
     var c = hash.charAt(hash_index);
     if (isLetter(c)) {
+        // a = 0, b = 1, c = 2 etc...
         c = hash.charCodeAt(hash_index) - 97
     }
 
@@ -166,6 +167,6 @@ function get_color_value(hash, hash_index) {
 }
 
 
-function isLetter(i) {
-    return ((i >= 'a' && i <= 'z') || (i >= 'A' && i <= 'Z'));
+function isLetter(l) {
+    return ((l >= 'a' && l <= 'z') || (l >= 'A' && l <= 'Z'));
 }
