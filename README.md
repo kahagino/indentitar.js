@@ -1,11 +1,11 @@
 # Identitar.js
 
+**[See the actual project here](https://leopnt.github.io/identitar.js/)**
+
 Generates Github-like identicons from a randomly generated md5 hash.
 
 I originally made a mistake that led to a surprising behaviour 🤗 there is a tendency to create faces or body shapes.
 You can also provide a custom text to get your identicon!
-
-See the actual project [here](https://kahagino.github.io/indentitar.js/)
 
 ![identicon of the text 'face'](demo-screenshot.png)
 
